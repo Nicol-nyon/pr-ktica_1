@@ -1,2 +1,2 @@
 # pr-ktica_1
-Contiene la parte de back-end
+Contiene la parte del frontend y backend
