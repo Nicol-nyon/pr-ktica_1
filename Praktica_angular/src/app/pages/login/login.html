@@ -1,0 +1,36 @@
+<div class="page-wrapper">
+    <div class="grid-container">
+        <div class="card shadow-lg border-0 rounded-4 form-card">
+            <div class="card-body p-4">
+                <div class="form-header">
+                    <h3 class="text-center mb-3 fw-bold d-flex align-items-center justify-content-center gap-2 title-text">
+                        <img src="/images/logo.png" alt="Logo" class="logo-img">
+                        Inicia Sesión
+                    </h3>
+                </div>
+                <br>
+                <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+                    <div class="mb-3">
+                        <label class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" name="email" [(ngModel)]="credentials.email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" name="password" [(ngModel)]="credentials.password" required>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg register-btn" [disabled]="loginForm.invalid">
+                        <i class="bi bi-box-arrow-in-right"></i> Ingresar
+                        </button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-4">
+                    <a routerLink="/register" class="login-link">¿No tienes cuenta? <span>Regístrate</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo" (click)="toggleUserMenu()">
+      <img src="./images/p-default.png" alt="Logo">
+
+      <div class="user-menu" *ngIf="userMenuAbierto" (click)="$event.stopPropagation()">
+        <p>{{ usuario?.nombre || 'Usuario' }}</p>
+        <button (click)="logout()">Cerrar sesión</button>
+      </div>
+    </div>
+
+    <ul class="nav-links" [class.active]="menuAbierto">
+      <li *ngFor="let item of menuItems">
+        <a href="#" (click)="navigateTo(item.route, $event)">
+          <i [class]="item.icon"></i> {{ item.name }}
+        </a>
+      </li>
+    </ul>
+
+    <div class="menu-toggle" (click)="toggleMenu()">
+      <i class="bi" [ngClass]="menuAbierto ? 'bi-x' : 'bi-list'"></i>
+    </div>
+  </div>
+</nav>
+
+<section class="solicitud-section">
+  <h2 class="solicitud-title">Realicé su solicitud</h2>
+
+  <div class="solicitud-container">
+    <!-- Se añade #form="ngForm" -->
+    <form class="solicitud-form" #form="ngForm" (ngSubmit)="enviarSolicitud(form)">
+      <div class="form-group">
+        <label>Nombre (Cliente / Empresa):</label>
+        <input type="text" placeholder="Ingrese su nombre o empresa"
+               [(ngModel)]="usuario.nombre" name="nombreCliente" required>
+      </div>
+
+      <div class="form-group">
+        <label>DNI (De Usted):</label>
+        <input type="text" placeholder="Ingrese su DNI"
+               [(ngModel)]="usuario.dni" name="dniCePasaporte" required>
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono:</label>
+        <input type="tel" placeholder="Ingrese su número"
+               [(ngModel)]="usuario.telefono" name="telefono" required>
+      </div>
+
+      <div class="form-group">
+        <label>Cantidad a Producir (En unidades):</label>
+        <input type="number" placeholder="Ingrese la cantidad"
+               [(ngModel)]="cantidad" name="cantidad" required>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Entrega Estimada:</label>
+        <input type="date" [(ngModel)]="fechaEntrega" name="fechaEntregaEstimada" required>
+      </div>
+
+      <div class="form-group full">
+        <label>Descripción (Datos específicos que usted requiera):</label>
+        <textarea rows="5" placeholder="Describa los detalles del producto solicitado..."
+                  [(ngModel)]="descripcion" name="descripcion"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-enviar">
+          <i class="bi bi-send"></i> Enviar Solicitud
+        </button>
+      </div>
+    </form>
+
+    <aside class="productos-panel">
+      <img src="./images/elije.png" alt="Seleccione Producto" class="productos-imagen">
+
+      <h3 class="productos-title">Seleccione el Tipo de Producto</h3>
+      <input type="text" class="buscar-producto" placeholder="Buscar producto..." (input)="filtrarProductos($event)">
+
+      <ul class="lista-productos">
+        <li *ngFor="let prod of productosFiltrados" 
+            (click)="seleccionarProducto(prod)"
+            [class.selected]="productoSeleccionado?.id === prod.id && productoSeleccionado?.tipo === prod.tipo">
+          <i class="bi bi-box"></i> {{ prod.nombre }}
+        </li>
+      </ul>
+    </aside>
+  </div>
+</section>
